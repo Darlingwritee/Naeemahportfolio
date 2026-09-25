@@ -6,12 +6,22 @@ export const nav = [
 ]
 
 export const hero = {
+  status: 'Available for new projects',
   headline: 'NAEEMAH\nKAMALDEEN',
   subtitle: 'Multidisciplinary Graphic Designer · Brand Strategist · Visual Communicator',
   tagline:
     'I design visual systems that transform ideas into clear, compelling communication.',
   primaryCta: { label: 'Get In Touch', href: 'https://wa.link/ob060x' },
   secondaryCta: { label: 'View Work', href: '#work' },
+}
+
+/**
+ * Placeholder portrait. Swap `public/portrait.jpg` for Naeemah's own photo —
+ * keep it portrait-orientation (4:5 works best) and the layout absorbs it.
+ */
+export const portrait = {
+  name: 'Naeemah Kamaldeen',
+  src: '/portrait.jpg',
 }
 
 export const about = {
@@ -240,7 +250,7 @@ export const contact = {
   ],
   card: {
     heading: 'Get In Touch',
-    conversation: { label: 'Start a Conversation →', href: 'https://wa.link/ob060x' },
+    conversation: { label: 'Start a Conversation', href: 'https://wa.link/ob060x' },
     linkedin: {
       label: 'LinkedIn — Naeemah Kamaldeen',
       href: 'https://www.linkedin.com/in/naeemah-kamaldeen-40b847388',

@@ -4,11 +4,18 @@ function Process() {
   return (
     <section className="section process" id="process">
       <div className="section__inner">
-        <p className="eyebrow">{process.eyebrow}</p>
-        <h2>{process.heading}</h2>
+        <p className="eyebrow" data-reveal>
+          {process.eyebrow}
+        </p>
+        <h2 data-reveal>{process.heading}</h2>
         <div className="process__list">
-          {process.steps.map((step) => (
-            <div className="process__row" key={step.number}>
+          {process.steps.map((step, i) => (
+            <div
+              className="process__row"
+              key={step.number}
+              data-reveal
+              style={{ '--reveal-delay': `${i * 60}ms` }}
+            >
               <span className="process__number">{step.number}</span>
               <div>
                 <h3>{step.title}</h3>

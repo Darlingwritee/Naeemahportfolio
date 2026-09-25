@@ -2,9 +2,9 @@ import { contact } from '../data/content.js'
 
 function Contact() {
   return (
-    <section className="section contact">
+    <section className="section section--plum contact">
       <div className="section__inner contact__grid">
-        <div className="contact__intro">
+        <div className="contact__intro" data-reveal>
           <p className="eyebrow">{contact.eyebrow}</p>
           <h2>{contact.heading}</h2>
           <p>{contact.intro}</p>
@@ -15,10 +15,16 @@ function Contact() {
             ))}
           </ul>
         </div>
-        <div className="contact__card">
+        <div className="contact__card" data-reveal style={{ '--reveal-delay': '90ms' }}>
           <h3>{contact.card.heading}</h3>
-          <a className="contact__cta" href={contact.card.conversation.href} target="_blank" rel="noopener">
+          <a
+            className="contact__cta"
+            href={contact.card.conversation.href}
+            target="_blank"
+            rel="noopener"
+          >
             {contact.card.conversation.label}
+            <span aria-hidden="true">→</span>
           </a>
           <a className="contact__link" href={contact.card.linkedin.href} target="_blank" rel="noopener">
             {contact.card.linkedin.label}
@@ -26,7 +32,7 @@ function Contact() {
           <a className="contact__link" href={contact.card.rateCard.href} target="_blank" rel="noopener">
             {contact.card.rateCard.label}
           </a>
-          <p className="contact__status">● {contact.card.status}</p>
+          <p className="contact__status">{contact.card.status}</p>
         </div>
       </div>
     </section>

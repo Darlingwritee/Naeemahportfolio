@@ -14,19 +14,20 @@ function TagGroup({ title, tags }) {
     </div>
   )
 }
-
 function Skills() {
   return (
     <section className="section skills">
       <div className="section__inner">
-        <p className="eyebrow">{skills.eyebrow}</p>
-        <h2>{skills.heading}</h2>
-        <div className="skills__grid">
+        <p className="eyebrow" data-reveal>
+          {skills.eyebrow}
+        </p>
+        <h2 data-reveal>{skills.heading}</h2>
+        <div className="skills__grid" data-reveal>
           {skills.columns.map((col) => (
             <TagGroup key={col.title} title={col.title} tags={col.tags} />
           ))}
         </div>
-        <div className="skills__grid skills__grid--extras">
+        <div className="skills__grid skills__grid--extras" data-reveal>
           {skills.extras.map((col) => (
             <TagGroup key={col.title} title={col.title} tags={col.tags} />
           ))}

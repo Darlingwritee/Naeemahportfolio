@@ -1,9 +1,10 @@
+import { useEffect, useState } from 'react'
 import { footer } from '../data/content.js'
 
 function Footer() {
   return (
     <footer className="site-footer">
-      <div className="section__inner">
+      <div className="section__inner" data-reveal>
         <p className="eyebrow">{footer.eyebrow}</p>
         <div className="site-footer__links">
           {footer.links.map((link) => (
