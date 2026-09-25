@@ -30,10 +30,14 @@ export const hero = {
 /**
  * Placeholder portrait. Swap `public/portrait.jpg` for Naeemah's own photo —
  * keep it portrait-orientation (4:5 works best) and the layout absorbs it.
+ *
+ * Built from BASE_URL rather than a leading slash: the site is deployed to a
+ * GitHub Pages subpath (`/Naeemahportfolio/`), where an absolute `/portrait.jpg`
+ * would resolve to the domain root and 404.
  */
 export const portrait = {
   name: 'Naeemah Kamaldeen',
-  src: '/portrait.jpg',
+  src: `${import.meta.env.BASE_URL}portrait.jpg`,
 }
 
 export const about = {
