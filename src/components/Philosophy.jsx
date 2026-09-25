@@ -2,7 +2,7 @@ import { philosophy } from '../data/content.js'
 
 function Philosophy() {
   return (
-    <section className="section section--plum philosophy">
+    <section className="section section--plum philosophy" id="philosophy">
       <div className="section__inner">
         <p className="eyebrow" data-reveal>
           {philosophy.eyebrow}

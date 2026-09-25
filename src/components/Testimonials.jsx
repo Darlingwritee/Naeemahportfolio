@@ -2,7 +2,7 @@ import { testimonials } from '../data/content.js'
 
 function Testimonials() {
   return (
-    <section className="section section--tint testimonials">
+    <section className="section section--tint testimonials" id="testimonials">
       <div className="section__inner">
         <p className="eyebrow" data-reveal>
           {testimonials.eyebrow}

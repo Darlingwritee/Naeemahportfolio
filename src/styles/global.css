@@ -313,46 +313,59 @@ img {
 /* ---------- header ---------- */
 
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 20;
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  background: color-mix(in srgb, var(--paper) 76%, transparent);
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.35s var(--ease), background-color 0.35s var(--ease);
-}
-
-.site-header.is-scrolled {
-  border-bottom-color: var(--line);
-  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  pointer-events: none;
+  padding-top: env(safe-area-inset-top, 0px);
 }
 
 .site-header__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  gap: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+/* Floating clusters rather than a full-width bar, so the header never
+   draws a line across the page. */
+.brand,
+.index-trigger {
+  pointer-events: auto;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 16px 7px 8px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  transition: border-color 0.35s var(--ease), background-color 0.35s var(--ease);
+}
+
+.site-header.is-scrolled .brand,
+.site-header.is-scrolled .index-trigger {
+  border-color: var(--line);
+  background: color-mix(in srgb, var(--paper) 78%, transparent);
 }
 
 .brand {
   display: inline-flex;
-  align-items: center;
-  gap: 11px;
   font-family: var(--serif);
   font-optical-sizing: auto;
   font-variation-settings: 'SOFT' 0, 'WONK' 1, 'opsz' 24;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 540;
   letter-spacing: -0.01em;
   white-space: nowrap;
 }
 
 .brand__avatar {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   flex: none;
   border-radius: 50%;
   overflow: hidden;
@@ -371,33 +384,261 @@ img {
   transform-origin: 50% 19%;
 }
 
-.site-nav {
+.index-trigger {
+  display: inline-flex;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.index-trigger:hover {
+  color: var(--accent);
+}
+
+.index-trigger__bars {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 17px;
+}
+
+.index-trigger__bars span {
+  display: block;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.3s var(--ease);
+}
+
+.index-trigger:hover .index-trigger__bars span:first-child {
+  transform: translateY(-1px) scaleX(0.62);
+  transform-origin: left;
+}
+
+/* ---------- scroll progress ---------- */
+
+/* Carries the orientation the navbar used to provide. */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.scroll-progress__bar {
+  display: block;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: var(--accent);
+}
+
+/* ---------- contents index ---------- */
+
+.index-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--plum);
+  color: var(--on-plum);
+  animation: fadeIn 220ms var(--ease) both;
+}
+
+.index-menu__inner {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 4vw, 44px);
+  width: 100%;
+  max-width: var(--shell);
+  min-height: 100%;
+  margin: 0 auto;
+  padding: clamp(26px, 4vw, 44px) var(--gutter) clamp(36px, 5vw, 56px);
+}
+
+.index-menu__top {
   display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: 14px;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.site-nav a {
-  position: relative;
-  padding: 8px 12px;
+.index-menu__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  font-family: var(--serif);
+  font-variation-settings: 'SOFT' 0, 'WONK' 1, 'opsz' 24;
+  font-size: 17px;
+  font-weight: 540;
+}
+
+.index-menu__avatar {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--line-on-plum);
+  background: color-mix(in srgb, var(--on-plum) 10%, transparent);
+}
+
+.index-menu__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0%;
+  transform: scale(1.95);
+  transform-origin: 50% 19%;
+}
+
+.index-menu__close {
+  padding: 10px 20px;
   border-radius: 999px;
-  color: var(--ink-soft);
-  transition: color 0.22s var(--ease), background-color 0.22s var(--ease);
+  border: 1px solid var(--line-on-plum);
+  background: color-mix(in srgb, var(--on-plum) 8%, transparent);
+  color: var(--on-plum);
+  font-family: var(--sans);
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background-color 0.22s var(--ease);
 }
 
-.site-nav a:hover {
-  color: var(--ink);
-  background: color-mix(in srgb, var(--ink) 7%, transparent);
+.index-menu__close:hover {
+  background: color-mix(in srgb, var(--on-plum) 18%, transparent);
 }
 
-.site-nav a.is-external::after {
-  content: '↗';
+.index-menu__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 clamp(14px, 2vw, 22px);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.17em;
+  color: var(--accent-on-plum);
+}
+
+.index-menu__eyebrow::before {
+  content: '';
+  width: 30px;
+  height: 1px;
+  flex: none;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+.index-menu__nav {
+  flex: 1;
+}
+
+.index-menu__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line-on-plum);
+}
+
+.index-menu__item {
+  border-bottom: 1px solid var(--line-on-plum);
+  animation: indexItemIn 460ms var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 42ms + 90ms);
+}
+
+.index-menu__link {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: clamp(14px, 3vw, 40px);
+  padding: clamp(11px, 1.7vw, 20px) 0;
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  font-variation-settings: 'SOFT' 0, 'WONK' 1, 'opsz' 90;
+  font-size: clamp(27px, 4.4vw, 50px);
+  font-weight: 480;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--on-plum);
+  transition: color 0.25s var(--ease);
+}
+
+.index-menu__num {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--accent-on-plum);
+}
+
+.index-menu__label {
   display: inline-block;
-  margin-left: 6px;
-  font-size: 11px;
-  vertical-align: 1px;
-  opacity: 0.6;
+  transition: transform 0.35s var(--ease);
+}
+
+.index-menu__arrow {
+  font-family: var(--sans);
+  font-size: clamp(18px, 2.4vw, 26px);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.3s var(--ease), transform 0.35s var(--ease);
+}
+
+.index-menu__link:hover,
+.index-menu__link:focus-visible {
+  color: var(--accent-on-plum);
+}
+
+.index-menu__link:hover .index-menu__label,
+.index-menu__link:focus-visible .index-menu__label {
+  transform: translateX(12px);
+}
+
+.index-menu__link:hover .index-menu__arrow,
+.index-menu__link:focus-visible .index-menu__arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.index-menu__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.index-menu__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--line-on-plum);
+  font-size: 14px;
+  color: var(--on-plum-soft);
+  transition: color 0.22s var(--ease), border-color 0.22s var(--ease);
+}
+
+.index-menu__pill:hover {
+  color: var(--on-plum);
+  border-color: var(--accent-on-plum);
+}
+
+@keyframes indexItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
 }
 
 /* ---------- hero ---------- */
@@ -815,45 +1056,211 @@ img {
   line-height: 1.7;
 }
 
-/* Mosaic on a 6-column base. The lead shot takes 2 columns x 2 rows;
-   the rest take 2 columns each. That tiles exactly for six shots
-   (3 rows) and, with a wide finisher, for five shots (3 rows) too. */
+/* Column masonry. Each shot keeps its own aspect ratio, so no design is
+   cropped or letterboxed, and column flow means there are no grid holes
+   to backfill for odd image counts. */
 .case__gallery {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  grid-auto-rows: 168px;
-  gap: 12px;
+  column-count: 3;
+  column-gap: 12px;
 }
 
 .case__shot {
   position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 0 12px;
+  padding: 0;
+  border: 0;
   overflow: hidden;
   border-radius: 3px;
   background: var(--paper-2);
-  margin: 0;
-  grid-column: span 2;
+  cursor: zoom-in;
+  break-inside: avoid;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-.case__shot:first-child {
-  grid-column: span 4;
-  grid-row: span 2;
+/* Slight tint on hover. A zoom would crop the work, which is the thing
+   we are specifically avoiding here. */
+.case__shot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--plum);
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+  pointer-events: none;
 }
 
-/* Odd counts leave a 2-column gap in the final row; widen the last shot
-   to close it instead of leaving a hole. */
-.case__gallery--odd .case__shot:last-child {
-  grid-column: span 4;
+.case__shot:hover::after,
+.case__shot:focus-visible::after {
+  opacity: 0.16;
 }
 
 .case__shot img {
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.7s var(--ease);
+  height: auto;
 }
 
-.case__shot:hover img {
-  transform: scale(1.045);
+/* ---------- hover preview ---------- */
+
+.case-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  pointer-events: none;
+  padding: 10px 10px 0;
+  border: 1px solid var(--line-on-plum);
+  border-radius: 4px;
+  background: var(--plum);
+  box-shadow: 0 30px 70px -28px rgba(0, 0, 0, 0.55);
+  animation: previewIn 170ms var(--ease) both;
+}
+
+.case-preview__img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(440px, 38vw);
+  max-height: min(398px, 52vh);
+  border-radius: 2px;
+  background: var(--paper-2);
+}
+
+.case-preview__cap {
+  display: block;
+  padding: 11px 2px 12px;
+  font-size: 11.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--on-plum-soft);
+}
+
+@keyframes previewIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+/* ---------- lightbox ---------- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: clamp(20px, 5vw, 52px);
+  animation: fadeIn 200ms var(--ease) both;
+}
+
+.lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  cursor: zoom-out;
+  background: color-mix(in srgb, var(--ink) 86%, transparent);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.lightbox__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  max-width: min(1080px, 94vw);
+  overflow: hidden;
+  border: 1px solid var(--line-on-plum);
+  border-radius: 4px;
+  background: var(--plum);
+  box-shadow: 0 40px 100px -30px rgba(0, 0, 0, 0.6);
+  animation: panelIn 240ms var(--ease) both;
+}
+
+.lightbox__img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(86vh - 72px);
+  margin: 0 auto;
+  object-fit: contain;
+  background: var(--paper-2);
+}
+
+.lightbox__cap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 16px;
+  padding: 16px 22px;
+  border-top: 1px solid var(--line-on-plum);
+}
+
+.lightbox__meta {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--accent-on-plum);
+}
+
+.lightbox__title {
+  margin-right: auto;
+  font-family: var(--serif);
+  font-style: italic;
+  font-variation-settings: 'SOFT' 40, 'WONK' 1, 'opsz' 40;
+  font-size: 17px;
+  color: var(--on-plum);
+}
+
+.lightbox__count {
+  font-size: 12.5px;
+  letter-spacing: 0.09em;
+  color: var(--on-plum-soft);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: clamp(16px, 3vw, 28px);
+  right: clamp(16px, 3vw, 28px);
+  z-index: 1;
+  padding: 11px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--line-on-plum);
+  background: color-mix(in srgb, var(--paper) 14%, transparent);
+  color: var(--on-plum);
+  font-family: var(--sans);
+  font-size: 14px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background-color 0.22s var(--ease);
+}
+
+.lightbox__close:hover {
+  background: color-mix(in srgb, var(--paper) 26%, transparent);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
 }
 
 /* ---------- skills ---------- */
@@ -1318,41 +1725,17 @@ img {
    Responsive
    ============================================================ */
 
-/* The 6-column mosaic is too narrow below this width, so the gallery drops
-   to two columns with a full-width lead shot. That tiles exactly for both
-   odd and even counts: odd leaves two columns for the last row, even pairs
-   them and gives the final shot the full width. */
+/* Two columns once three would make the shots too small to read. */
 @media (max-width: 1024px) {
   .case__gallery {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-auto-rows: 200px;
-  }
-
-  .case__shot,
-  .case__gallery--odd .case__shot:last-child {
-    grid-column: auto;
-    grid-row: auto;
-  }
-
-  .case__shot:first-child {
-    grid-column: span 2;
-    grid-row: span 1;
-  }
-
-  .case__gallery--even .case__shot:last-child {
-    grid-column: span 2;
+    column-count: 2;
   }
 }
 
-@media (max-width: 560px) {
+/* Below this a single column keeps each design at a legible size. */
+@media (max-width: 640px) {
   .case__gallery {
-    grid-template-columns: 1fr;
-    grid-auto-rows: 215px;
-  }
-
-  .case__shot:first-child,
-  .case__gallery--even .case__shot:last-child {
-    grid-column: auto;
+    column-count: 1;
   }
 }
 
@@ -1418,17 +1801,16 @@ img {
 }
 
 @media (max-width: 720px) {
-  .site-nav {
-    gap: 0;
-    font-size: 13.5px;
-  }
-
-  .site-nav a {
-    padding: 7px 9px;
+  .brand__name {
+    display: none;
   }
 
   .brand {
-    font-size: 17px;
+    padding: 6px;
+  }
+
+  .index-trigger {
+    padding: 7px 14px;
   }
 
   .philosophy__grid {

@@ -2,7 +2,7 @@ import { about } from '../data/content.js'
 
 function About() {
   return (
-    <section className="section about">
+    <section className="section about" id="about">
       <div className="section__inner about__grid">
         <div className="about__intro" data-reveal>
           <div className="about__mark">

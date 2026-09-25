@@ -2,7 +2,7 @@ import { contact } from '../data/content.js'
 
 function Contact() {
   return (
-    <section className="section section--plum contact">
+    <section className="section section--plum contact" id="contact">
       <div className="section__inner contact__grid">
         <div className="contact__intro" data-reveal>
           <p className="eyebrow">{contact.eyebrow}</p>

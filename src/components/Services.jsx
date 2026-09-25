@@ -2,7 +2,7 @@ import { services } from '../data/content.js'
 
 function Services() {
   return (
-    <section className="section services">
+    <section className="section services" id="services">
       <div className="section__inner">
         <p className="eyebrow" data-reveal>
           {services.eyebrow}

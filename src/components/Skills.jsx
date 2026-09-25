@@ -16,7 +16,7 @@ function TagGroup({ title, tags }) {
 }
 function Skills() {
   return (
-    <section className="section skills">
+    <section className="section skills" id="skills">
       <div className="section__inner">
         <p className="eyebrow" data-reveal>
           {skills.eyebrow}

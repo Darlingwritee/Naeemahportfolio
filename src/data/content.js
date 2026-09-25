@@ -1,8 +1,20 @@
-export const nav = [
+// The contents index behind the overlay menu. Every in-page section is
+// reachable from one place rather than a handful of top-level links.
+export const contents = [
+  { label: 'About', href: '#about' },
+  { label: 'Philosophy', href: '#philosophy' },
+  { label: 'Services', href: '#services' },
   { label: 'Work', href: '#work' },
+  { label: 'Expertise', href: '#skills' },
   { label: 'Process', href: '#process' },
-  { label: 'Rate Card', href: 'https://naeemahkamalratecard.netlify.app/', external: true },
-  { label: 'Contact', href: 'https://wa.link/ob060x', external: true },
+  { label: 'Testimonials', href: '#testimonials' },
+  { label: 'Contact', href: '#contact' },
+]
+
+export const elsewhere = [
+  { label: 'Rate Card', href: 'https://naeemahkamalratecard.netlify.app/' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/naeemah-kamaldeen-40b847388' },
+  { label: 'WhatsApp', href: 'https://wa.link/ob060x' },
 ]
 
 export const hero = {
