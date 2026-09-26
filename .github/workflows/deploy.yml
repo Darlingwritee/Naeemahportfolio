@@ -35,6 +35,12 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        with:
+          # Pages was never enabled on this repo, so this step failed with
+          # "Get Pages site failed ... Not Found" and took the whole workflow
+          # down. Let the action enable it instead of requiring a manual trip
+          # to Settings -> Pages.
+          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
